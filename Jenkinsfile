@@ -1,32 +1,16 @@
-#!/usr/bin/env groovy
-properties([
-    [$class: 'GithubProjectProperty',
-    displayName: '',
-    projectUrlStr: 'https://github.com/VeridicSolutions99/Veridic_Atlanta.git/'],
-    pipelineTriggers([upstream(
-   threshold: 'SUCCESS',
-   upstreamProjects: 'https://github.com/My-NewOrganization/Massachusetts.git'
-   )])])
-
 pipeline {
-    agent any 
+    agent any
+
+    parameters {
+        booleanParam(defaultValue: true, description: '', name: 'userFlag')
+        string(defaultValue: 'DC', description: '', name: 'name')
+        choice(choices: 'Batman\nFlash\nGreenlanthern', description: , name: 'your DC hero')
+    }
 
     stages {
-        stage('Build') { 
-            steps { 
-                sh 'pwd' 
-            }
-        }
-        stage('Test'){
+        stage("foo") {
             steps {
-                sh 'java -version'
-                
-            }
-        }
-        stage('Deploy') {
-            steps {
-                sh 'ls'
-                sh 'pwd'
+                echo "flag: ${params.userFlag}"
             }
         }
     }
